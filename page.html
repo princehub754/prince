@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Site Web Moderne</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 6rem 0;
+            text-align: center;
+            margin-top: 2rem;
+            border-radius: 10px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #fff;
+            color: #667eea;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 20px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #667eea;
+            border-radius: 50%;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #764ba2;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #764ba2;
+        }
+
+        .modal-content h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .service-card.clickable {
+            cursor: pointer;
+        }
+
+        /* Password Modal Styles */
+        .password-input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn-submit {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit.confirm {
+            background-color: #667eea;
+            color: #fff;
+        }
+
+        .btn-submit.confirm:hover {
+            background-color: #764ba2;
+        }
+
+        .btn-submit.cancel {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .btn-submit.cancel:hover {
+            background-color: #bbb;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        /* Shop Modal Styles */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .shop-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .shop-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .item-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        /* Unavailable Message Modal */
+        .unavailable-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .unavailable-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .unavailable-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            text-align: center;
+        }
+
+        .unavailable-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .unavailable-content h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+        }
+
+        .unavailable-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .unavailable-btn {
+            background-color: #667eea;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .unavailable-btn:hover {
+            background-color: #764ba2;
+        }
+
+        /* Pack XML Options Styles */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .option-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .option-btn:active {
+            transform: translateY(-2px);
+        }
+
+        /* Payment Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .payment-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .payment-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            text-align: center;
+            position: relative;
+        }
+
+        .payment-content h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .payment-content p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .payment-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .payment-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            min-width: 150px;
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .payment-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            color: #667eea;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s;
+        }
+
+        .payment-close:hover {
+            color: #764ba2;
+        }
+
+        /* Feedback Modal Styles */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .feedback-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feedback-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            text-align: center;
+            position: relative;
+        }
+
+        .feedback-content h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feedback-content p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feedback-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+
+        .feedback-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .like-count {
+            background-color: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 2px solid #667eea;
+        }
+
+        .like-count p {
+            margin: 0.5rem 0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .like-emoji {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+
+        .feedback-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            color: #667eea;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s;
+        }
+
+        .feedback-close:hover {
+            color: #764ba2;
+        }
+
+        /* PayPal Login Modal Styles */
+        .paypal-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .paypal-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .paypal-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            position: relative;
+        }
+
+        .paypal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .paypal-logo {
+            font-size: 2rem;
+            color: #003087;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .paypal-content h3 {
+            color: #003087;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .paypal-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            color: #666;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s;
+        }
+
+        .paypal-close:hover {
+            color: #003087;
+        }
+
+        .paypal-form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .paypal-form input:focus {
+            outline: none;
+            border-color: #003087;
+            box-shadow: 0 0 5px rgba(0, 48, 135, 0.3);
+        }
+
+        .paypal-submit {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #003087;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .paypal-submit:hover {
+            background-color: #001f4d;
+            box-shadow: 0 4px 12px rgba(0, 48, 135, 0.3);
+        }
+
+        .amount-info {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .paypal-divider {
+            border-top: 1px solid #ddd;
+            margin: 1.5rem 0;
+        }
+
+        .whatsapp-help {
+            text-align: center;
+            padding-top: 1rem;
+        }
+
+        .whatsapp-help p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1fb855;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Performance Modal Styles */
+        .performance-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .performance-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .performance-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            text-align: center;
+            position: relative;
+        }
+
+        .performance-content h3 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .performance-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .performance-option-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .performance-option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .performance-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            color: #667eea;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s;
+        }
+
+        .performance-close:hover {
+            color: #764ba2;
+        }
+
+        /* High Resolution Modal */
+        .resolution-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .resolution-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .resolution-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            position: relative;
+        }
+
+        .resolution-content h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .resolution-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .resolution-warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 5px;
+            color: #856404;
+        }
+
+        .resolution-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .resolution-accept {
+            background-color: #28a745;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .resolution-accept:hover {
+            background-color: #218838;
+        }
+
+        .resolution-reject {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .resolution-reject:hover {
+            background-color: #c82333;
+        }
+
+        .resolution-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            color: #666;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* PIN Modal */
+        .pin-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .pin-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pin-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            text-align: center;
+            position: relative;
+        }
+
+        .pin-content h3 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        .pin-input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .pin-input:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+
+        .pin-error {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .pin-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .pin-submit {
+            background-color: #667eea;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .pin-submit:hover {
+            background-color: #764ba2;
+        }
+
+        .pin-cancel {
+            background-color: #ddd;
+            color: #333;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .pin-cancel:hover {
+            background-color: #bbb;
+        }
+
+        .pin-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            color: #666;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* Welcome Modal Styles */
+        .welcome-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .welcome-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-content {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            animation: welcomeSlideIn 0.6s ease-out;
+            text-align: center;
+            position: relative;
+        }
+
+        @keyframes welcomeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            50% {
+                transform: translateY(10px) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: welcomePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes welcomePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .welcome-content h2 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: welcomeTextSlide 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes welcomeTextSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .welcome-content p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            animation: welcomeTextSlide 0.8s ease-out 0.4s both;
+        }
+
+        .welcome-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            animation: welcomeTextSlide 0.8s ease-out 0.6s both;
+        }
+
+        .welcome-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .welcome-close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            color: #667eea;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s;
+        }
+
+        .welcome-close:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête et Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">PRINCE WEBSITE</div>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#apropos">À propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Section Héro -->
+    <section class="hero" id="accueil">
+        <div class="container">
+            <h1>Bienvenue sur Mon Site</h1>
+            <p>Découvrez nos services professionnels et innovants</p>
+            <button class="btn" onclick="openWelcomeModal()">Commencer</button>
+        </div>
+    </section>
+
+    <!-- Contenu Principal -->
+    <main class="main" id="services">
+        <div class="container">
+            <h2 style="text-align: center; color: #fff; margin-bottom: 2rem;">Nos Services</h2>
+            
+            <div class="services">
+                <div class="service-card">
+                    <div class="icon">🎨</div>
+                    <h3>Design Créatif</h3>
+                    <p>Nous créons des designs modernes et esthétiques qui reflètent votre marque et attirent vos clients.</p>
+                </div>
+
+                <div class="service-card clickable" onclick="openFeedbackModal()">
+                    <div class="icon">💻</div>
+                    <h3>Développement Web</h3>
+                    <p>Des sites web performants et responsifs, optimisés pour une excellente expérience utilisateur.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="icon">📱</div>
+                    <h3>Mobile First</h3>
+                    <p>Applications mobiles intuitives et fluides, conçues pour les utilisateurs modernes en déplacement.</p>
+                </div>
+
+                <div class="service-card clickable" onclick="openPerformanceModal()">
+                    <div class="icon">🚀</div>
+                    <h3>Performance</h3>
+                    <p>Optimisation maximale pour des chargements rapides et une meilleure visibilité en ligne.</p>
+                </div>
+
+                <div class="service-card clickable" onclick="openSecurityModal()">
+                    <div class="icon">🔒</div>
+                    <h3>Sécurité</h3>
+                    <p>Protection complète de vos données avec les protocoles de sécurité les plus avancés.</p>
+                </div>
+
+                <div class="service-card clickable" onclick="openInnovationModal()">
+                    <div class="icon">💡</div>
+                    <h3>Innovation</h3>
+                    <p>Solutions novatrices utilisant les dernières technologies pour vous donner un avantage compétitif.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Bienvenue -->
+    <div id="welcomeModal" class="welcome-modal" onclick="closeWelcomeModal(event)">
+        <div class="welcome-content" onclick="event.stopPropagation()">
+            <button class="welcome-close" onclick="closeWelcomeModal()">&times;</button>
+            <div class="welcome-icon">👋</div>
+            <h2>BIENVENUE</h2>
+            <p style="font-size: 1.3rem; color: #667eea; font-weight: bold;">SUR LE SITE PRINCE</p>
+            <p>Découvrez nos services exceptionnels, nos produits innovants et bien plus encore. Nous sommes heureux de vous accueillir sur notre plateforme !</p>
+            <button class="welcome-button" onclick="closeWelcomeModal()">Commencer l'exploration</button>
+        </div>
+    </div>
+
+    <!-- Modal Performance Options -->
+    <div id="performanceModal" class="performance-modal" onclick="closePerformanceModal(event)">
+        <div class="performance-content" onclick="event.stopPropagation()">
+            <button class="performance-close" onclick="closePerformanceModal()">&times;</button>
+            <h3>⚙️ Options de Performance</h3>
+            <div class="performance-options">
+                <button class="performance-option-btn" onclick="openHighResolutionModal()">🎬 HIGH RESOLUTION</button>
+                <button class="performance-option-btn" onclick="openPinModal()">🔐 PIN</button>
+                <button class="performance-option-btn" onclick="activateMarche()">🎮 MARCHE ROBLOX</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal High Resolution Warning -->
+    <div id="resolutionModal" class="resolution-modal" onclick="closeResolutionModal(event)">
+        <div class="resolution-content" onclick="event.stopPropagation()">
+            <button class="resolution-close" onclick="closeResolutionModal()">&times;</button>
+            <h3>⚠️ HIGH RESOLUTION</h3>
+            <p>En activant cette option, le site se chargera avec une qualité très élevée.</p>
+            <div class="resolution-warning">
+                <strong>⚠️ Attention :</strong><br>
+                Cette option rendra le site <strong>PLUS RAPIDE</strong>, mais votre téléphone <strong>se réchauffera plus rapidement</strong>. Êtes-vous sûr de vouloir continuer ?
+            </div>
+            <div class="resolution-buttons">
+                <button class="resolution-accept" onclick="activateHighResolution()">✓ Accepter</button>
+                <button class="resolution-reject" onclick="closeResolutionModal()">✗ Refuser</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal PIN Code -->
+    <div id="pinModal" class="pin-modal" onclick="closePinModal(event)">
+        <div class="pin-content" onclick="event.stopPropagation()">
+            <button class="pin-close" onclick="closePinModal()">&times;</button>
+            <h3>🔐 Entrez le Code PIN</h3>
+            <input type="password" id="pinInput" class="pin-input" placeholder="Entrez le code" maxlength="5">
+            <div id="pinError" class="pin-error">❌ Code incorrect !</div>
+            <div class="pin-buttons">
+                <button class="pin-submit" onclick="verifyPin()">Valider</button>
+                <button class="pin-cancel" onclick="closePinModal()">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delta Executor -->
+    <div id="deltaExecutorModal" class="resolution-modal" onclick="closeDeltaExecutorModal(event)">
+        <div class="resolution-content" onclick="event.stopPropagation()">
+            <button class="resolution-close" onclick="closeDeltaExecutorModal()">&times;</button>
+            <h3>⚡ Delta Executor</h3>
+            <p>🌟 <strong>FREE</strong> 🌟</p>
+            <p style="color: #1abc9c; font-weight: bold; font-size: 1.2rem; margin-bottom: 1.5rem;">Delta Executor est maintenant disponible dans votre boutique !</p>
+            <div class="resolution-warning" style="border-left-color: #1abc9c; background-color: #e8f8f5; color: #016450;">
+                🎆 <strong>GRATUIT</strong> - Accédez à Delta Executor directement depuis votre compte
+            </div>
+            <button class="resolution-accept" style="background-color: #1abc9c;" onclick="closeDeltaExecutorModal(); alert('Delta Executor a été ajouté à votre compte ! Merci pour votre visite 🎉')">✓ Fermer</button>
+        </div>
+    </div>
+
+    <!-- Modal PayPal Login -->
+    <div id="paypalModal" class="paypal-modal" onclick="closePaypalModal(event)">
+        <div class="paypal-content" onclick="event.stopPropagation()">
+            <button class="paypal-close" onclick="closePaypalModal()">&times;</button>
+            <div class="paypal-header">
+                <div class="paypal-logo">PayPal</div>
+                <h3>Connexion</h3>
+            </div>
+            <div class="amount-info">
+                Montant: <span style="color: #003087; font-size: 1.2rem;">$1.00</span>
+            </div>
+            <form id="paypalForm" class="paypal-form" onsubmit="processPayPalPayment(event)">
+                <input type="email" name="paypal_email" placeholder="Adresse email" required>
+                <input type="password" name="paypal_password" placeholder="Mot de passe" required>
+                <button type="submit" class="paypal-submit">Se connecter et payer</button>
+            </form>
+            <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1rem;">Vous serez redirigé vers PayPal pour confirmer votre paiement</p>
+            
+            <div class="paypal-divider"></div>
+            
+            <div class="whatsapp-help">
+                <p>💬 Besoin d'aide ?</p>
+                <a href="https://wa.me/17862775129?text=Bonjour, j'ai besoin d'aide pour mon paiement Pack XML" class="whatsapp-btn" target="_blank">📱 Contactez-nous sur WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Feedback Like/Dislike -->
+    <div id="feedbackModal" class="feedback-modal" onclick="closeFeedbackModal(event)">
+        <div class="feedback-content" onclick="event.stopPropagation()">
+            <button class="feedback-close" onclick="closeFeedbackModal()">&times;</button>
+            <h3>👍 DONNE TON AVIS 👎</h3>
+            <p>Que penses-tu de notre service de Développement Web ?</p>
+            <div class="feedback-buttons">
+                <button class="feedback-btn" onclick="submitFeedback('like')">👍 LIKE</button>
+                <button class="feedback-btn" onclick="submitFeedback('dislike')">👎 DISLIKE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Payment -->
+    <div id="paymentModal" class="payment-modal" onclick="closePaymentModal(event)">
+        <div class="payment-content" onclick="event.stopPropagation()">
+            <button class="payment-close" onclick="closePaymentModal()">&times;</button>
+            <h3>💳 Choisir le mode de paiement</h3>
+            <p>Sélectionnez comment vous souhaitez payer</p>
+            <div class="payment-buttons">
+                <button class="payment-btn" onclick="selectPaymentMethod('PayPal')">PayPal</button>
+                <button class="payment-btn" onclick="selectPaymentMethod('Cash App')">Cash App</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pack XML -->
+    <div id="packXmlModal" class="modal" onclick="closePackXmlModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 700px;">
+            <button class="close-btn" onclick="closePackXmlModal()">&times;</button>
+            <h2>📦 Pack XML - $1</h2>
+            <p style="color: #666; text-align: center; margin-bottom: 1.5rem;">Sélectionnez l'option que vous désirez</p>
+            
+            <div class="options-grid">
+                <button class="option-btn" onclick="selectXmlOption('CC')">CC</button>
+                <button class="option-btn" onclick="selectXmlOption('SHAKE')">SHAKE</button>
+                <button class="option-btn" onclick="selectXmlOption('CUBE')">CUBE</button>
+                <button class="option-btn" onclick="selectXmlOption('EFFET')">EFFET</button>
+                <button class="option-btn" onclick="selectXmlOption('GLITCH')">GLITCH</button>
+                <button class="option-btn" onclick="selectXmlOption('OVERLAY')">OVERLAY</button>
+                <button class="option-btn" onclick="selectXmlOption('INTRO')">INTRO</button>
+                <button class="option-btn" onclick="selectXmlOption('OUTRO')">OUTRO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Unavailable Message -->
+    <div id="unavailableModal" class="unavailable-modal" onclick="closeUnavailableModal(event)">
+        <div class="unavailable-content" onclick="event.stopPropagation()">
+            <div class="unavailable-icon">⚠️</div>
+            <h3>Non Disponible</h3>
+            <p>CET OBJET N'EST PAS DISPONIBLE POUR LE MOMENT</p>
+            <button class="unavailable-btn" onclick="closeUnavailableModal()">D'accord</button>
+        </div>
+    </div>
+
+    <!-- Modal Password Security -->
+    <div id="securityPasswordModal" class="modal" onclick="closeSecurityPasswordModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeSecurityPasswordModal()">&times;</button>
+            <h2>🔐 Accès Sécurisé</h2>
+            <p style="color: #666; text-align: center;">Veuillez entrer le mot de passe pour accéder à la boutique</p>
+            <input type="password" id="securityPassword" class="password-input" placeholder="Entrez le mot de passe" onkeypress="if(event.key === 'Enter') validatePassword()">
+            <div id="passwordError" class="error-message" style="display: none;">Mot de passe incorrect !</div>
+            <div class="modal-buttons">
+                <button class="btn-submit confirm" onclick="validatePassword()">Confirmer</button>
+                <button class="btn-submit cancel" onclick="closeSecurityPasswordModal()">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Shop -->
+    <div id="shopModal" class="modal" onclick="closeShopModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 600px;">
+            <button class="close-btn" onclick="closeShopModal()">&times;</button>
+            <h2>🛍️ Boutique Premium</h2>
+            <p style="color: #666;">Découvrez nos produits et services exclusifs</p>
+            
+            <div class="shop-grid">
+                <div class="shop-item" onclick="showUnavailableMessage()">
+                    <div class="item-icon">💎</div>
+                    <div class="item-name">Pack Pro</div>
+                    <div class="item-price">$49</div>
+                </div>
+                
+                <div class="shop-item" onclick="showUnavailableMessage()">
+                    <div class="item-icon">🚀</div>
+                    <div class="item-name">Pack Ultra</div>
+                    <div class="item-price">$99</div>
+                </div>
+                
+                <div class="shop-item" onclick="showUnavailableMessage()">
+                    <div class="item-icon">👑</div>
+                    <div class="item-name">Pack Elite</div>
+                    <div class="item-price">$199</div>
+                </div>
+                
+                <div class="shop-item" onclick="showUnavailableMessage()">
+                    <div class="item-icon">🎯</div>
+                    <div class="item-name">Support 24/7</div>
+                    <div class="item-price">$29</div>
+                </div>
+                
+                <div class="shop-item" onclick="openPackXmlModal()">
+                    <div class="item-icon">📦</div>
+                    <div class="item-name">Pack XML</div>
+                    <div class="item-price">$1</div>
+                </div>
+                
+                <div class="shop-item\" onclick="window.location.href='https://deltaexecutor.com/'\">\n                    <div class=\"item-icon\">⚡</div>\n                    <div class=\"item-name\">Delta Executor</div>\n                    <div class=\"item-price\" style=\"color: #1abc9c; font-weight: bold;\">FREE</div>\n                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn" onclick="alert('Merci pour votre intérêt ! Contactez-nous via WhatsApp pour plus d\'informations.')" style="background-color: #667eea; color: #fff;">Acheter Maintenant</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Innovation -->
+    <div id="innovationModal" class="modal" onclick="closeInnovationModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeInnovationModal()">&times;</button>
+            <h2>Innovation</h2>
+            <p>🚀 <strong>UPDATE CHAQUE MOIS</strong></p>
+            <p>Nous mettons à jour régulièrement nos solutions innovantes pour vous offrir les dernières technologies et fonctionnalités du marché.</p>
+            <p>Restez connecté pour découvrir les nouveautés et améliorations chaque mois !</p>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #eee;">
+                <h4 style="color: #667eea; margin-bottom: 1rem; font-size: 1.1rem;">Avez-vous un avis ou une suggestion ? 💬</h4>
+                <form method="POST" action="https://formspree.io/f/xyzpqwrt" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <input type="hidden" name="_captcha" value="false">
+                    <textarea name="message" placeholder="Laissez votre commentaire ici..." required style="padding: 0.8rem; border: 2px solid #667eea; border-radius: 5px; font-size: 0.95rem; font-family: inherit; resize: vertical; min-height: 80px;"></textarea>
+                    <input type="email" name="email" placeholder="Votre email (optionnel)" style="padding: 0.8rem; border: 2px solid #667eea; border-radius: 5px; font-size: 0.95rem;">
+                    <button type="submit" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 0.8rem; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(102, 126, 234, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">Envoyer mon avis</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Contact -->
+    <section id="contact" style="background-color: rgba(255, 255, 255, 0.95); padding: 3rem 0; margin: 3rem 0;">
+        <div class="container">
+            <h2 style="text-align: center; color: #667eea; margin-bottom: 2rem; font-size: 2rem;">Nous Contacter</h2>
+            <div style="max-width: 600px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #333;">Contactez-nous via WhatsApp</p>
+                <div style="text-align: center;">
+                    <a href="https://wa.me/17862775129" class="btn" style="background-color: #25D366; color: #fff; text-decoration: none; font-size: 1.1rem; padding: 1rem 2rem;">WhatsApp: +1 (786) 277-5129</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 PRINCE WEBSITE. Tous droits réservés.</p>
+            <p>Créé avec passion et expertise</p>
+            <div class="social-links">
+                <a href="#">f</a>
+                <a href="#">𝕏</a>
+                <a href="#">in</a>
+                <a href="#">▶</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Variable pour stocker l'option sélectionnée
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.id = 'currentXmlOption';
+            input.value = '';
+            document.body.appendChild(input);
+        });
+
+        // Unavailable Message Functions
+        function showUnavailableMessage() {
+            document.getElementById('unavailableModal').classList.add('show');
+        }
+
+        function closeUnavailableModal(event) {
+            if (event && event.target.id !== 'unavailableModal') return;
+            document.getElementById('unavailableModal').classList.remove('show');
+        }
+
+        // Innovation Modal Functions
+        function openInnovationModal() {
+            document.getElementById('innovationModal').classList.add('show');
+        }
+
+        function closeInnovationModal(event) {
+            if (event && event.target.id !== 'innovationModal') return;
+            document.getElementById('innovationModal').classList.remove('show');
+        }
+
+        // Security Password Modal Functions
+        function openSecurityModal() {
+            document.getElementById('securityPasswordModal').classList.add('show');
+            document.getElementById('securityPassword').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('securityPassword').focus();
+        }
+
+        function closeSecurityPasswordModal(event) {
+            if (event && event.target.id !== 'securityPasswordModal') return;
+            document.getElementById('securityPasswordModal').classList.remove('show');
+        }
+
+        function validatePassword() {
+            const password = document.getElementById('securityPassword').value;
+            const correctPassword = 'PRINCE';
+
+            if (password === correctPassword) {
+                document.getElementById('securityPasswordModal').classList.remove('show');
+                openShopModal();
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('securityPassword').value = '';
+                document.getElementById('securityPassword').focus();
+            }
+        }
+
+        // Shop Modal Functions
+        function openShopModal() {
+            document.getElementById('shopModal').classList.add('show');
+        }
+
+        function closeShopModal(event) {
+            if (event && event.target.id !== 'shopModal') return;
+            document.getElementById('shopModal').classList.remove('show');
+        }
+
+        // Feedback Modal Functions
+        let likeCount = localStorage.getItem('webDevLikes') ? parseInt(localStorage.getItem('webDevLikes')) : 0;
+
+        function openFeedbackModal() {
+            document.getElementById('feedbackModal').classList.add('show');
+        }
+
+        function closeFeedbackModal(event) {
+            if (event && event.target.id !== 'feedbackModal') return;
+            document.getElementById('feedbackModal').classList.remove('show');
+        }
+
+        function submitFeedback(type) {
+            if (type === 'like') {
+                likeCount++;
+                localStorage.setItem('webDevLikes', likeCount);
+                showLikeCount();
+            } else if (type === 'dislike') {
+                showLikeCount();
+            }
+        }
+
+        function showLikeCount() {
+            const feedbackContent = document.querySelector('.feedback-content');
+            const buttonsDiv = feedbackContent.querySelector('.feedback-buttons');
+            const existingCount = feedbackContent.querySelector('.like-count');
+            
+            if (existingCount) {
+                existingCount.remove();
+            }
+            
+            const countDiv = document.createElement('div');
+            countDiv.className = 'like-count';
+            countDiv.innerHTML = `
+                <div class="like-emoji">👍</div>
+                <p>Total : <strong>${likeCount}</strong> like(s)</p>
+                <p style="font-size: 0.9rem; color: #999; margin-top: 1rem;">Merci pour votre avis !</p>
+            `;
+            
+            feedbackContent.appendChild(countDiv);
+            
+            setTimeout(() => {
+                closeFeedbackModal();
+            }, 2000);
+        }
+
+        // Welcome Modal Functions
+        function openWelcomeModal() {
+            document.getElementById('welcomeModal').classList.add('show');
+        }
+
+        function closeWelcomeModal(event) {
+            if (event && event.target.id !== 'welcomeModal') return;
+            document.getElementById('welcomeModal').classList.remove('show');
+        }
+
+        // Performance Modal Functions
+        function openPerformanceModal() {
+            document.getElementById('performanceModal').classList.add('show');
+        }
+
+        function closePerformanceModal(event) {
+            if (event && event.target.id !== 'performanceModal') return;
+            document.getElementById('performanceModal').classList.remove('show');
+        }
+
+        // High Resolution Functions
+        function openHighResolutionModal() {
+            document.getElementById('performanceModal').classList.remove('show');
+            document.getElementById('resolutionModal').classList.add('show');
+        }
+
+        function closeResolutionModal(event) {
+            if (event && event.target.id !== 'resolutionModal') return;
+            document.getElementById('resolutionModal').classList.remove('show');
+        }
+
+        function activateHighResolution() {
+            document.getElementById('resolutionModal').classList.remove('show');
+            alert('✅ HIGH RESOLUTION activée !\n\nVotre site fonctionne maintenant en haute qualité avec une vitesse optimale.\n\nAttention: Ne laissez pas votre téléphone activé longtemps pour éviter la surchauffe.');
+        }
+
+        // PIN Modal Functions
+        function openPinModal() {
+            document.getElementById('performanceModal').classList.remove('show');
+            document.getElementById('pinModal').classList.add('show');
+            document.getElementById('pinInput').focus();
+        }
+
+        function closePinModal(event) {
+            if (event && event.target.id !== 'pinModal') return;
+            document.getElementById('pinModal').classList.remove('show');
+            document.getElementById('pinInput').value = '';
+            document.getElementById('pinError').style.display = 'none';
+        }
+
+        function verifyPin() {
+            const pinInput = document.getElementById('pinInput').value;
+            const correctPin = '123';
+
+            if (pinInput === correctPin) {
+                document.getElementById('pinModal').classList.remove('show');
+                alert('✅ Code PIN valide !\n\nAccès autorisé. Merci!');
+            } else {
+                document.getElementById('pinError').style.display = 'block';
+                document.getElementById('pinInput').value = '';
+                document.getElementById('pinInput').focus();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && document.getElementById('pinModal').classList.contains('show')) {
+                verifyPin();
+            }
+        });
+
+        // Marche Roblox Function
+        function activateMarche() {
+            document.getElementById('performanceModal').classList.remove('show');
+            openDeltaExecutorModal();
+        }
+
+        // Delta Executor Modal Functions
+        function openDeltaExecutorModal() {
+            document.getElementById('deltaExecutorModal').classList.add('show');
+        }
+
+        function closeDeltaExecutorModal(event) {
+            if (event && event.target.id !== 'deltaExecutorModal') return;
+            document.getElementById('deltaExecutorModal').classList.remove('show');
+        }
+
+        // Fermer les modals en appuyant sur Échap
+        function openPackXmlModal() {
+            document.getElementById('packXmlModal').classList.add('show');
+        }
+
+        function closePackXmlModal(event) {
+            if (event && event.target.id !== 'packXmlModal') return;
+            document.getElementById('packXmlModal').classList.remove('show');
+        }
+
+        function selectXmlOption(option) {
+            document.getElementById('currentXmlOption').value = option;
+            closePackXmlModal();
+            openPaymentModal();
+        }
+
+        // Payment Modal Functions
+        function openPaymentModal() {
+            document.getElementById('paymentModal').classList.add('show');
+        }
+
+        function closePaymentModal(event) {
+            if (event && event.target.id !== 'paymentModal') return;
+            document.getElementById('paymentModal').classList.remove('show');
+        }
+
+        function selectPaymentMethod(method) {
+            const option = document.getElementById('currentXmlOption').value;
+            
+            if (method === 'PayPal') {
+                closePaymentModal();
+                openPaypalModal();
+            } else if (method === 'Cash App') {
+                alert('Option : ' + option + '\nMéthode de paiement : Cash App\n\nMerci pour votre achat !\nContactez-nous via WhatsApp pour plus de détails.');
+                closePaymentModal();
+            }
+        }
+
+        // PayPal Modal Functions
+        function openPaypalModal() {
+            document.getElementById('paypalModal').classList.add('show');
+        }
+
+        function closePaypalModal(event) {
+            if (event && event.target.id !== 'paypalModal') return;
+            document.getElementById('paypalModal').classList.remove('show');
+        }
+
+        function processPayPalPayment(event) {
+            event.preventDefault();
+            const email = document.querySelector('input[name="paypal_email"]').value;
+            const option = document.getElementById('currentXmlOption').value;
+            
+            // Créer un formulaire de paiement PayPal
+            const paypalForm = document.createElement('form');
+            paypalForm.method = 'POST';
+            paypalForm.action = 'https://www.paypal.com/cgi-bin/webscr';
+            paypalForm.target = '_blank';
+            
+            // Paramètres de paiement PayPal
+            const params = {
+                'cmd': '_xclick',
+                'business': 'garencethifaut28@icloud.com',
+                'item_name': 'Pack XML - Option ' + option,
+                'item_number': option,
+                'amount': '1.00',
+                'currency_code': 'USD',
+                'invoice': 'PRINCE_' + Date.now(),
+                'notify_url': 'https://example.com/notify',
+                'return': window.location.href,
+                'cancel_return': window.location.href
+            };
+            
+            for (const key in params) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = params[key];
+                paypalForm.appendChild(input);
+            }
+            
+            document.body.appendChild(paypalForm);
+            paypalForm.submit();
+            document.body.removeChild(paypalForm);
+            
+            closePaypalModal();
+        }
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('innovationModal').classList.remove('show');
+                document.getElementById('securityPasswordModal').classList.remove('show');
+                document.getElementById('shopModal').classList.remove('show');
+                document.getElementById('unavailableModal').classList.remove('show');
+                document.getElementById('packXmlModal').classList.remove('show');
+                document.getElementById('paymentModal').classList.remove('show');
+                document.getElementById('feedbackModal').classList.remove('show');
+                document.getElementById('paypalModal').classList.remove('show');
+                document.getElementById('performanceModal').classList.remove('show');
+                document.getElementById('resolutionModal').classList.remove('show');
+                document.getElementById('pinModal').classList.remove('show');
+                document.getElementById('deltaExecutorModal').classList.remove('show');
+                document.getElementById('welcomeModal').classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
